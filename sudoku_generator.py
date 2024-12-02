@@ -1,5 +1,5 @@
 import math, random
-import pygame
+import pygame, sys
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
 https://www.geeksforgeeks.org/program-sudoku-generator/
@@ -299,6 +299,71 @@ class Cell:
         elif self.sketch != 0:
             text = font.render(str(self.sketch), True, (0, 0, 0))
             self.screen.blit(text, (x + 20, y + 20))
+
+
+class Board:
+    def __init__(self, width, height, screen, difficulty):
+        self.width = width
+        self.height = height
+        self.screen = screen
+        self.difficulty = difficulty
+        self.cells = [[Cell(0, row, col, screen) for col in range(9)] for row in range(9)]
+        self.selected_cell = None
+        self.generate_sudoku()
+
+    def generate_sudoku(self):
+        self.sudoku_generator = SudokuGenerator(9, self.difficulty)
+        self.sudoku_generator.fill_values()
+        self.sudoku_generator.remove_cells()
+        self.board = self.sudoku_generator.get_board()
+        for row in range(9):
+            for col in range(9):
+                self.cells[row][col].set_cell_value(self.board[row][col])
+
+
+    def draw(self):
+        for i in range(10):
+            thickness = 2 if i % 3 != 0 else 5
+            pygame.draw.line(self.screen, (0, 0, 0), (i*60, 0), (i*60, 540), thickness)
+            pygame.draw.line(self.screen, (0, 0, 0), (0, i*60), (540, i*60), thickness)
+
+        for row in self.cells:
+            for cell in row:
+                cell.draw()
+
+    def selected(self, row, col):
+        self.selected_cell = self.cells[row][col]
+        self.selected_cell.selected = True
+
+    def click(self, x, y):
+        row = y // 60
+        col = x // 60
+
+    def sketch(self, value):
+        if self.selected_cell:
+            self.selected_cell.set_sketched_value(value)
+
+    def place_number(self, value):
+        if self.selected_cell:
+            self.selected_cell.set_cell_value(value)
+
+    def reset_to_original(self):
+        self.generate_sudoku()
+
+    def is_full(self):
+        for row in self.cells:
+            for cell in row:
+                if cell.value == 0:
+                    return False
+        return True
+
+    def check_board(self):
+        for row in range(9):
+            for col in range(9):
+                if not self.sudoku_generator.is_valid(row, col, self.cells[row][col].value):
+                    return False
+        return True
+
 
 
 
