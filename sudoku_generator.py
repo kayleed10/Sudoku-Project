@@ -1,5 +1,5 @@
 import math, random
-
+import pygame
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
 https://www.geeksforgeeks.org/program-sudoku-generator/
@@ -267,3 +267,39 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
+class Cell:
+    def __init__(self, value, row, col, screen):
+        self.value = value
+        self.sketch = 0
+        self.row = row
+        self.col = col
+        self.screen = screen
+        self.selected = False
+
+
+    def set_cell_value(self, value):
+        self.value = value
+
+    def set_sketched_value(self, value):
+        self.sketch = value
+
+
+    def draw(self):
+        x = self.col * 60
+        y = self.row * 60
+        pygame.draw.rect(self.screen, (255, 255, 255), (x, y, 60, 60))
+        if self.selected:
+            pygame.draw.rect(self.screen, (255, 0, 0), (x, y, 60, 60), 5)
+
+        font = pygame.font.SysFont('Arial', 30)
+        if self.value != 0:
+            text = font.render(str(self.value), True, (0, 0, 0))
+            self.screen.blit(text, (x + 20, y + 20))
+        elif self.sketch != 0:
+            text = font.render(str(self.sketch), True, (0, 0, 0))
+            self.screen.blit(text, (x + 20, y + 20))
+
+
+
+
