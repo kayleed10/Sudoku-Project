@@ -1,7 +1,7 @@
 #python3 sudoku.py
-
 import pygame, sys
-def draw_grid():
+
+def draw_big_grid():
     #draw horizontal lines
     for i in range(1, 4):
         pygame.draw.line(
@@ -22,17 +22,84 @@ def draw_grid():
             6
 
         )
+
+def draw_small_grid():
+    #draw horizontal lines
+    for i in range(0, 9):
+        pygame.draw.line(
+            screen,
+            (0,0,0),
+            (0, i*48.8),
+            (500, i*48.8),
+            2
+        )
+
+    #draw vertical lines
+    for i in range(0, 10):
+        pygame.draw.line(
+            screen, ##surface
+            (0,0,0), ##color
+            (i*55.4, 0), ##start position
+            (i*55.4, 438), ##end position
+            2
+
+        )
 def easy_screen(screen):
   screen.fill((202, 228, 241))
-  draw_grid()
+  draw_big_grid()
+  draw_small_grid()
+
+  ##Buttons at bottom of screen
+  button_font = pygame.font.SysFont("comicsansms", 16, bold=True)
+  ## Difficulty buttons
+  reset_text = button_font.render("RESET", 0, (255,255,255))
+  restart_text = button_font.render("RESTART", 0, (255,255,255))
+  exit_text = button_font.render("EXIT", 0, (255,255,255))
+
+  ## Button background
+  reset_surface = pygame.Surface((85, 30))
+  restart_surface = pygame.Surface((85,30))
+  exit_surface = pygame.Surface((85,30))
+
+  ## Putting reset button on screen
+  reset_surface.fill((92, 64, 51))
+  reset_surface.blit(reset_text, (15,3))
+
+  reset_rectangle = reset_surface.get_rect(
+    center = (500 // 2 - 95, 500 // 2 + 219))
+
+  screen.blit(reset_surface, reset_rectangle)
+
+  ##Putting restart button on screen
+  restart_surface.fill((92, 64, 51))
+  restart_surface.blit(restart_text, (5,3))
+
+  restart_rectangle = restart_surface.get_rect(
+    center = (500 // 2, 500 // 2 + 219))
+
+  screen.blit(restart_surface, restart_rectangle)
+
+  ##Putting exit button on screen
+  exit_surface.fill((92, 64, 51))
+  exit_surface.blit(exit_text, (20,3))
+
+  exit_rectangle = exit_surface.get_rect(
+    center = (500 // 2 + 95, 500 // 2 + 219))
+
+  screen.blit(exit_surface, exit_rectangle)
+
   pygame.display.update()
 
 def med_screen(screen):
-  screen.fill((0,0,0))
+  screen.fill((202, 228, 241))
+  draw_big_grid()
+  draw_small_grid()
   pygame.display.update()
 
 def hard_screen(screen):
-  screen.fill((50,255,0))
+  screen.fill((202, 228, 241))
+  draw_big_grid()
+  draw_small_grid()
   pygame.display.update()
 
 
@@ -40,7 +107,7 @@ def hard_screen(screen):
 def main_menu_draw(screen):
   title_font = pygame.font.SysFont("artifaktelement", 40)
   game_mode_font = pygame.font.SysFont("artifaktelement", 25)
-  button_font = pygame.font.SysFont("comicsansms", 20, bold=True) #lucidasansrockwellextra
+  button_font = pygame.font.SysFont("comicsansms", 20, bold=True) #lucidasans or rockwellextra are other possible fonts
 
   sudoku_image = pygame.image.load("sudoku_image.jpg")
   sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
