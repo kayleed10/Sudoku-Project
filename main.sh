@@ -44,6 +44,97 @@ def draw_small_grid():
             2
 
         )
+
+def game_over(screen):
+  title_font = pygame.font.SysFont("artifaktelement", 50)
+  button_font = pygame.font.SysFont("comicsansms", 20, bold=True) #lucidasans or rockwellextra are other possible fonts
+
+  sudoku_image = pygame.image.load("sudoku_image.jpg")
+  sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
+  screen.blit(sudoku_image, (0,0))
+
+
+  title_surface = pygame.Surface((265,75)) #For showing title
+  title_surface.fill((255, 255, 255))
+  title_text = title_font.render("Game Over", 0, (0,0,0))
+  title_rectangle = title_surface.get_rect(
+  center = (500 //2, 500 // 2 - 100))
+  screen.blit(title_surface, title_rectangle)
+  screen.blit(title_text, title_rectangle)
+
+  ## Restart button
+  restart_text = button_font.render("RESTART", 0, (255,255,255))
+
+
+  ## Button background
+  restart_surface = pygame.Surface((130, 40))
+
+  ## Putting restart button on screen
+  restart_surface.fill((92, 64, 51))
+  restart_surface.blit(restart_text, (17,5))
+
+  restart_rectangle = restart_surface.get_rect(
+    center = (500 // 2, 500 // 2 + 5))
+
+  screen.blit(restart_surface, restart_rectangle)
+
+  while True:
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        pygame.quit()
+        sys.exit()
+      elif event.type == pygame.MOUSEBUTTONDOWN:
+        if restart_rectangle.collidepoint(event.pos):
+          main_menu_draw(screen)
+
+    pygame.display.update()
+
+def game_won(screen):
+  title_font = pygame.font.SysFont("artifaktelement", 50)
+  button_font = pygame.font.SysFont("comicsansms", 20, bold=True) #lucidasans or rockwellextra are other possible fonts
+
+  sudoku_image = pygame.image.load("sudoku_image.jpg")
+  sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
+  screen.blit(sudoku_image, (0,0))
+
+
+  title_surface = pygame.Surface((270,75)) #For showing title
+  title_surface.fill((255, 255, 255))
+  title_text = title_font.render("Game Won!", 0, (0,0,0))
+  title_rectangle = title_surface.get_rect(
+  center = (500 //2, 500 // 2 - 100))
+  screen.blit(title_surface, title_rectangle)
+  screen.blit(title_text, title_rectangle)
+
+  ## Exit button
+  exit_text = button_font.render("EXIT", 0, (255,255,255))
+
+
+  ## Button background
+  exit_surface = pygame.Surface((130, 40))
+
+  ## Putting restart button on screen
+  exit_surface.fill((92, 64, 51))
+  exit_surface.blit(exit_text, (38,5))
+
+  exit_rectangle = exit_surface.get_rect(
+    center = (500 // 2, 500 // 2 + 5))
+
+  screen.blit(exit_surface, exit_rectangle)
+
+  while True:
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        pygame.quit()
+        sys.exit()
+      elif event.type == pygame.MOUSEBUTTONDOWN:
+        if exit_rectangle.collidepoint(event.pos):
+          pygame.quit()
+          sys.exit()
+
+    pygame.display.update()
+
+
 def easy_screen(screen):
   screen.fill((202, 228, 241))
   draw_big_grid()
