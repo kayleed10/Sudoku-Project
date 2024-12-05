@@ -90,17 +90,146 @@ def easy_screen(screen):
 
   pygame.display.update()
 
+  while True:
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        pygame.quit()
+        sys.exit()
+      elif event.type == pygame.MOUSEBUTTONDOWN:
+        if reset_rectangle.collidepoint(event.pos):
+          easy_screen(screen)
+        elif restart_rectangle.collidepoint(event.pos):
+          main_menu_draw(screen)
+        elif exit_rectangle.collidepoint(event.pos):
+          pygame.quit()
+          sys.exit()
+
+    pygame.display.update()
+
+
 def med_screen(screen):
   screen.fill((202, 228, 241))
   draw_big_grid()
   draw_small_grid()
+
+  ##Buttons at bottom of screen
+  button_font = pygame.font.SysFont("comicsansms", 16, bold=True)
+  ## Difficulty buttons
+  reset_text = button_font.render("RESET", 0, (255,255,255))
+  restart_text = button_font.render("RESTART", 0, (255,255,255))
+  exit_text = button_font.render("EXIT", 0, (255,255,255))
+
+  ## Button background
+  reset_surface = pygame.Surface((85, 30))
+  restart_surface = pygame.Surface((85,30))
+  exit_surface = pygame.Surface((85,30))
+
+  ## Putting reset button on screen
+  reset_surface.fill((92, 64, 51))
+  reset_surface.blit(reset_text, (15,3))
+
+  reset_rectangle = reset_surface.get_rect(
+    center = (500 // 2 - 95, 500 // 2 + 219))
+
+  screen.blit(reset_surface, reset_rectangle)
+
+  ##Putting restart button on screen
+  restart_surface.fill((92, 64, 51))
+  restart_surface.blit(restart_text, (5,3))
+
+  restart_rectangle = restart_surface.get_rect(
+    center = (500 // 2, 500 // 2 + 219))
+
+  screen.blit(restart_surface, restart_rectangle)
+
+  ##Putting exit button on screen
+  exit_surface.fill((92, 64, 51))
+  exit_surface.blit(exit_text, (20,3))
+
+  exit_rectangle = exit_surface.get_rect(
+    center = (500 // 2 + 95, 500 // 2 + 219))
+
+  screen.blit(exit_surface, exit_rectangle)
+
   pygame.display.update()
+
+  while True:
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        pygame.quit()
+        sys.exit()
+      elif event.type == pygame.MOUSEBUTTONDOWN:
+        if reset_rectangle.collidepoint(event.pos):
+          med_screen(screen)
+        elif restart_rectangle.collidepoint(event.pos):
+          main_menu_draw(screen)
+        elif exit_rectangle.collidepoint(event.pos):
+          pygame.quit()
+          sys.exit()
+
+    pygame.display.update()
 
 def hard_screen(screen):
   screen.fill((202, 228, 241))
   draw_big_grid()
   draw_small_grid()
+
+  ##Buttons at bottom of screen
+  button_font = pygame.font.SysFont("comicsansms", 16, bold=True)
+  ## Difficulty buttons
+  reset_text = button_font.render("RESET", 0, (255,255,255))
+  restart_text = button_font.render("RESTART", 0, (255,255,255))
+  exit_text = button_font.render("EXIT", 0, (255,255,255))
+
+  ## Button background
+  reset_surface = pygame.Surface((85, 30))
+  restart_surface = pygame.Surface((85,30))
+  exit_surface = pygame.Surface((85,30))
+
+  ## Putting reset button on screen
+  reset_surface.fill((92, 64, 51))
+  reset_surface.blit(reset_text, (15,3))
+
+  reset_rectangle = reset_surface.get_rect(
+    center = (500 // 2 - 95, 500 // 2 + 219))
+
+  screen.blit(reset_surface, reset_rectangle)
+
+  ##Putting restart button on screen
+  restart_surface.fill((92, 64, 51))
+  restart_surface.blit(restart_text, (5,3))
+
+  restart_rectangle = restart_surface.get_rect(
+    center = (500 // 2, 500 // 2 + 219))
+
+  screen.blit(restart_surface, restart_rectangle)
+
+  ##Putting exit button on screen
+  exit_surface.fill((92, 64, 51))
+  exit_surface.blit(exit_text, (20,3))
+
+  exit_rectangle = exit_surface.get_rect(
+    center = (500 // 2 + 95, 500 // 2 + 219))
+
+  screen.blit(exit_surface, exit_rectangle)
+
   pygame.display.update()
+
+  while True:
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        pygame.quit()
+        sys.exit()
+      elif event.type == pygame.MOUSEBUTTONDOWN:
+        if reset_rectangle.collidepoint(event.pos):
+          hard_screen(screen)
+        elif restart_rectangle.collidepoint(event.pos):
+          main_menu_draw(screen)
+        elif exit_rectangle.collidepoint(event.pos):
+          pygame.quit()
+          sys.exit()
+
+    pygame.display.update()
 
 
 
