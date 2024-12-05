@@ -1,6 +1,41 @@
 #python3 sudoku.py
 
 import pygame, sys
+def draw_grid():
+    #draw horizontal lines
+    for i in range(1, 4):
+        pygame.draw.line(
+            screen,
+            (0,0,0),
+            (0, i*145),
+            (500, i*145),
+            6
+        )
+
+    #draw vertical lines
+    for i in range(1, 3):
+        pygame.draw.line(
+            screen, ##surface
+            (0,0,0), ##color
+            (i*166, 0), ##start position
+            (i*166, 438), ##end position
+            6
+
+        )
+def easy_screen(screen):
+  screen.fill((202, 228, 241))
+  draw_grid()
+  pygame.display.update()
+
+def med_screen(screen):
+  screen.fill((0,0,0))
+  pygame.display.update()
+
+def hard_screen(screen):
+  screen.fill((50,255,0))
+  pygame.display.update()
+
+
 
 def main_menu_draw(screen):
   title_font = pygame.font.SysFont("artifaktelement", 40)
@@ -71,10 +106,12 @@ def main_menu_draw(screen):
         pygame.quit()
         sys.exit()
       elif event.type == pygame.MOUSEBUTTONDOWN:
-        pygame.display.update()
-#        if start_rectangle.collidepoint(event.pos):
-#        return
-
+        if easy_rectangle.collidepoint(event.pos):
+          easy_screen(screen)
+        elif medium_rectangle.collidepoint(event.pos):
+          med_screen(screen)
+        elif hard_rectangle.collidepoint(event.pos):
+          hard_screen(screen)
 
     pygame.display.update()
 
