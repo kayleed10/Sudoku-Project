@@ -333,16 +333,24 @@ class Board:
 
 
     def selected(self, row, col):
+
+        if self.selected_cell:
+            self.selected_cell.selected = False
         self.selected_cell = self.cells[row][col]
         self.selected_cell.selected = True
+
 
     def click(self, x, y):
         row = y // 60
         col = x // 60
+        if 0 <= row < 9 and 0 <= col < 9:  # Ensure click is within bounds
+            self.selected(row, col)
 
     def sketch(self, value):
         if self.selected_cell:
             self.selected_cell.set_sketched_value(value)
+
+
 
     def place_number(self, value):
         if self.selected_cell:

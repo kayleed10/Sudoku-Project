@@ -3,49 +3,50 @@ from sudoku_generator import SudokuGenerator
 from sudoku_generator import Board
 from sudoku_generator import Cell
 
-def draw_big_grid():
-    #draw horizontal lines
-    for i in range(1, 4):
-        pygame.draw.line(
-            screen,
-            (0,0,0),
-            (0, i*145),
-            (500, i*145),
-            6
-        )
-
-    #draw vertical lines
-    for i in range(1, 3):
-        pygame.draw.line(
-            screen, ##surface
-            (0,0,0), ##color
-            (i*166, 0), ##start position
-            (i*166, 438), ##end position
-            6
-
-        )
-
-def draw_small_grid():
-    #draw horizontal lines
-    for i in range(0, 9):
-        pygame.draw.line(
-            screen,
-            (0,0,0),
-            (0, i*48.8),
-            (500, i*48.8),
-            2
-        )
-
-    #draw vertical lines
-    for i in range(0, 10):
-        pygame.draw.line(
-            screen, ##surface
-            (0,0,0), ##color
-            (i*55.4, 0), ##start position
-            (i*55.4, 438), ##end position
-            2
-
-        )
+##These grid functions will be deleted later on today
+# def draw_big_grid():
+#     #draw horizontal lines
+#     for i in range(1, 4):
+#         pygame.draw.line(
+#             screen,
+#             (0,0,0),
+#             (0, i*145),
+#             (500, i*145),
+#             6
+#         )
+#
+#     #draw vertical lines
+#     for i in range(1, 3):
+#         pygame.draw.line(
+#             screen, ##surface
+#             (0,0,0), ##color
+#             (i*166, 0), ##start position
+#             (i*166, 438), ##end position
+#             6
+#
+#         )
+#
+# def draw_small_grid():
+#     #draw horizontal lines
+#     for i in range(0, 9):
+#         pygame.draw.line(
+#             screen,
+#             (0,0,0),
+#             (0, i*48.8),
+#             (500, i*48.8),
+#             2
+#         )
+#
+#     #draw vertical lines
+#     for i in range(0, 10):
+#         pygame.draw.line(
+#             screen, ##surface
+#             (0,0,0), ##color
+#             (i*55.4, 0), ##start position
+#             (i*55.4, 438), ##end position
+#             2
+#
+#         )
 
 def game_over(screen):
   title_font = pygame.font.Font("font/artifakt/Artifakt Element Black.ttf", 47)
@@ -205,10 +206,16 @@ def easy_screen(screen):
           sys.exit()
         else:
           x, y = event.pos
-          mouse_coord = (x//55.4, y//48.8)
-          print (mouse_coord)
-    # screen.fill((202,228,241))
-    # sudoku_board.draw()
+          sudoku_board.click(x,y)
+      elif event.type == pygame.KEYDOWN:
+        if pygame.K_1 <= event.key <= pygame.K_9:
+          user_input = event.key - pygame.K_0
+          sudoku_board.sketch(user_input)
+        elif event.key == pygame.K_RETURN:
+          sudoku_board.place_number(user_input)
+
+    screen.fill((202,228,241))
+    sudoku_board.draw()
     pygame.display.update()
 
 
