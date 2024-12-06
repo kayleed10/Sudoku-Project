@@ -213,6 +213,9 @@ def easy_screen(screen):
           sudoku_board.sketch(user_input)
         elif event.key == pygame.K_RETURN:
           sudoku_board.place_number(user_input)
+        elif event.key == pygame.K_BACKSPACE:
+          if sudoku_board.selected_cell:
+            sudoku_board.selected_cell.set_sketched_value(0)
 
     screen.fill((202,228,241))
     sudoku_board.draw()
