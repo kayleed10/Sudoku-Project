@@ -1,4 +1,7 @@
 import pygame, sys
+from sudoku_generator import SudokuGenerator
+from sudoku_generator import Board
+from sudoku_generator import Cell
 
 def draw_big_grid():
     #draw horizontal lines
@@ -49,15 +52,15 @@ def game_over(screen):
   button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 20) #lucidasans or rockwellextra are other possible fonts
 
   sudoku_image = pygame.image.load("sudoku_image.jpg")
-  sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
+  sudoku_image = pygame.transform.scale(sudoku_image, (540, 600))
   screen.blit(sudoku_image, (0,0))
 
 
   title_surface = pygame.Surface((265,75), pygame.SRCALPHA) #For showing title
   title_surface.fill((255, 255, 255, 200))
   title_text = title_font.render("Game Over", 1, (0,0,0))
-  title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
-  title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
+  title_rectangle = title_surface.get_rect(center = (540 //2, 600 // 2 - 100))
+  title_rec = title_text.get_rect(center=(540 // 2, 600 // 2 - 100))
   screen.blit(title_surface, title_rectangle)
   screen.blit(title_text, title_rec)
 
@@ -73,7 +76,7 @@ def game_over(screen):
   restart_surface.blit(restart_text, (17,5))
 
   restart_rectangle = restart_surface.get_rect(
-    center = (500 // 2, 500 // 2 + 5))
+    center = (540 // 2, 600 // 2 + 5))
 
   screen.blit(restart_surface, restart_rectangle)
 
@@ -93,15 +96,15 @@ def game_won(screen):
   button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 20) #lucidasans or rockwellextra are other possible fonts
 
   sudoku_image = pygame.image.load("sudoku_image.jpg")
-  sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
+  sudoku_image = pygame.transform.scale(sudoku_image, (540, 600))
   screen.blit(sudoku_image, (0,0))
 
 
   title_surface = pygame.Surface((270,75), pygame.SRCALPHA) #For showing title
   title_surface.fill((255, 255, 255, 200))
   title_text = title_font.render("Game Won!", 1, (0,0,0))
-  title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
-  title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
+  title_rectangle = title_surface.get_rect(center = (540 //2, 600 // 2 - 100))
+  title_rec = title_text.get_rect(center=(540 // 2, 600 // 2 - 100))
   screen.blit(title_surface, title_rectangle)
   screen.blit(title_text, title_rec)
 
@@ -117,7 +120,7 @@ def game_won(screen):
   exit_surface.blit(exit_text, (38,5))
 
   exit_rectangle = exit_surface.get_rect(
-    center = (500 // 2, 500 // 2 + 5))
+    center = (540 // 2, 600 // 2 + 5))
 
   screen.blit(exit_surface, exit_rectangle)
 
@@ -136,8 +139,15 @@ def game_won(screen):
 
 def easy_screen(screen):
   screen.fill((202, 228, 241))
-  draw_big_grid()
-  draw_small_grid()
+  # draw_big_grid()
+  # draw_small_grid()
+
+  sudoku_board = Board(540, 540, screen, 30)
+  # for row in sudoku_board.cells:
+  #   for cell in row:
+
+
+  sudoku_board.draw()
 
   ##Buttons at bottom of screen
   button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 16)
@@ -156,7 +166,7 @@ def easy_screen(screen):
   reset_surface.blit(reset_text, (15,3))
 
   reset_rectangle = reset_surface.get_rect(
-    center = (500 // 2 - 95, 500 // 2 + 219))
+    center = (540 // 2 - 95, 570))
 
   screen.blit(reset_surface, reset_rectangle)
 
@@ -165,7 +175,7 @@ def easy_screen(screen):
   restart_surface.blit(restart_text, (5,3))
 
   restart_rectangle = restart_surface.get_rect(
-    center = (500 // 2, 500 // 2 + 219))
+    center = (540 // 2, 570))
 
   screen.blit(restart_surface, restart_rectangle)
 
@@ -174,7 +184,7 @@ def easy_screen(screen):
   exit_surface.blit(exit_text, (20,3))
 
   exit_rectangle = exit_surface.get_rect(
-    center = (500 // 2 + 95, 500 // 2 + 219))
+    center = (540 // 2 + 95, 570))
 
   screen.blit(exit_surface, exit_rectangle)
 
@@ -187,13 +197,18 @@ def easy_screen(screen):
         sys.exit()
       elif event.type == pygame.MOUSEBUTTONDOWN:
         if reset_rectangle.collidepoint(event.pos):
-          easy_screen(screen)
+          sudoku_board.reset_to_original()
         elif restart_rectangle.collidepoint(event.pos):
           main_menu_draw(screen)
         elif exit_rectangle.collidepoint(event.pos):
           pygame.quit()
           sys.exit()
-
+        else:
+          x, y = event.pos
+          mouse_coord = (x//55.4, y//48.8)
+          print (mouse_coord)
+    # screen.fill((202,228,241))
+    # sudoku_board.draw()
     pygame.display.update()
 
 
@@ -329,23 +344,23 @@ def main_menu_draw(screen):
   button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 20) #lucidasans or rockwellextra are other possible fonts
 
   sudoku_image = pygame.image.load("sudoku_image.jpg")
-  sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
+  sudoku_image = pygame.transform.scale(sudoku_image, (540, 600))
   screen.blit(sudoku_image, (0,0))
 
 
   title_surface = pygame.Surface((375,50), pygame.SRCALPHA) #For showing title
   title_surface.fill((255, 255, 255, 200))
   title_text = title_font.render("Welcome to Sudoku", 1, (0,0,0))
-  title_rectangle = title_surface.get_rect(center =(500 // 2, (500 // 2) - 125))
-  title_text_rec = title_text.get_rect(center =(500 // 2, (500 // 2) - 125 ))
+  title_rectangle = title_surface.get_rect(center =(540 // 2, (600 // 2) - 125))
+  title_text_rec = title_text.get_rect(center =(540 // 2, (600 // 2) - 125 ))
   screen.blit(title_surface, title_rectangle)
   screen.blit(title_text, title_text_rec)
 
   game_mode_surface = pygame.Surface((230,40), pygame.SRCALPHA) #For showing "game mode select" text
   game_mode_surface.fill((255, 255, 255, 200))
   game_mode_text = game_mode_font.render("Select Game Mode:", 1, (0,0,0))
-  game_mode_rectangle = game_mode_surface.get_rect(center = (500 //2, (500 // 2) - 15))
-  game_mode_rec = game_mode_text.get_rect(center=(500 // 2, (500 // 2) - 15))
+  game_mode_rectangle = game_mode_surface.get_rect(center = (540 //2, (600 // 2) - 15))
+  game_mode_rec = game_mode_text.get_rect(center=(540 // 2, (600 // 2) - 15))
   screen.blit(game_mode_surface, game_mode_rectangle)
   screen.blit(game_mode_text, game_mode_rec)
 
@@ -364,7 +379,7 @@ def main_menu_draw(screen):
   easy_surface.blit(easy_text, (17,5))
 
   easy_rectangle = easy_surface.get_rect(
-    center = (500 // 2 - 150, 500 // 2 + 110))
+    center = (540 // 2 - 150, 600 // 2 + 110))
 
   screen.blit(easy_surface, easy_rectangle)
 
@@ -373,7 +388,7 @@ def main_menu_draw(screen):
   medium_surface.blit(medium_text, (17,5))
 
   medium_rectangle = medium_surface.get_rect(
-    center = (500 // 2, 500 // 2 + 110))
+    center = (540 // 2, 600 // 2 + 110))
 
   screen.blit(medium_surface, medium_rectangle)
 
@@ -382,7 +397,7 @@ def main_menu_draw(screen):
   hard_surface.blit(hard_text, (17,5))
 
   hard_rectangle = hard_surface.get_rect(
-    center = (500 // 2 + 150, 500 // 2 + 110))
+    center = (540 // 2 + 150, 600 // 2 + 110))
 
   screen.blit(hard_surface, hard_rectangle)
 
@@ -403,7 +418,7 @@ def main_menu_draw(screen):
 
 if __name__ == "__main__":
   pygame.init()
-  screen = pygame.display.set_mode((500, 500))
+  screen = pygame.display.set_mode((540, 600))
   pygame.display.set_caption("Sudoku")
 
   main_menu_draw(screen)

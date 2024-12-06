@@ -288,7 +288,7 @@ class Cell:
     def draw(self):
         x = self.col * 60
         y = self.row * 60
-        pygame.draw.rect(self.screen, (255, 255, 255), (x, y, 60, 60))
+        pygame.draw.rect(self.screen, (202, 228, 241), (x, y, 60, 60))
         if self.selected:
             pygame.draw.rect(self.screen, (255, 0, 0), (x, y, 60, 60), 5)
 
@@ -322,14 +322,15 @@ class Board:
 
 
     def draw(self):
+        for row in self.cells:
+            for cell in row:
+                cell.draw()
         for i in range(10):
             thickness = 2 if i % 3 != 0 else 5
             pygame.draw.line(self.screen, (0, 0, 0), (i*60, 0), (i*60, 540), thickness)
             pygame.draw.line(self.screen, (0, 0, 0), (0, i*60), (540, i*60), thickness)
 
-        for row in self.cells:
-            for cell in row:
-                cell.draw()
+
 
     def selected(self, row, col):
         self.selected_cell = self.cells[row][col]
