@@ -56,10 +56,10 @@ def game_over(screen):
   title_surface = pygame.Surface((265,75)) #For showing title
   title_surface.fill((255, 255, 255))
   title_text = title_font.render("Game Over", 0, (0,0,0))
-  title_rectangle = title_surface.get_rect(
-  center = (500 //2, 500 // 2 - 100))
+  title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
+  title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
   screen.blit(title_surface, title_rectangle)
-  screen.blit(title_text, title_rectangle)
+  screen.blit(title_text, title_rec)
 
   ## Restart button
   restart_text = button_font.render("RESTART", 0, (255,255,255))
@@ -100,10 +100,10 @@ def game_won(screen):
   title_surface = pygame.Surface((270,75)) #For showing title
   title_surface.fill((255, 255, 255))
   title_text = title_font.render("Game Won!", 0, (0,0,0))
-  title_rectangle = title_surface.get_rect(
-  center = (500 //2, 500 // 2 - 100))
+  title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
+  title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
   screen.blit(title_surface, title_rectangle)
-  screen.blit(title_text, title_rectangle)
+  screen.blit(title_text, title_rec)
 
   ## Exit button
   exit_text = button_font.render("EXIT", 0, (255,255,255))
@@ -335,17 +335,19 @@ def main_menu_draw(screen):
 
   title_surface = pygame.Surface((375,50)) #For showing title
   title_surface.fill((255, 255, 255))
-  title_text = title_font.render("Welcome to Sudoku", 0, (0,0,0))
-  title_rectangle = title_surface.get_rect(center = (500 // 2, (500 // 2) - 125))
+  title_text = title_font.render("Welcome to Sudoku", 1, (0,0,0))
+  title_rectangle = title_surface.get_rect(center =(500 // 2, (500 // 2) - 125))
+  title_text_rec = title_text.get_rect(center =(500 // 2, (500 // 2) - 125 ))
   screen.blit(title_surface, title_rectangle)
-  screen.blit(title_text, title_rectangle)
+  screen.blit(title_text, title_text_rec)
 
   game_mode_surface = pygame.Surface((230,40)) #For showing "game mode select" text
   game_mode_surface.fill((255, 255, 255))
-  game_mode_text = game_mode_font.render("Select Game Mode:", 0, (0,0,0))
+  game_mode_text = game_mode_font.render("Select Game Mode:", 1, (0,0,0))
   game_mode_rectangle = game_mode_surface.get_rect(center = (500 //2, (500 // 2) - 15))
+  game_mode_rec = game_mode_text.get_rect(center=(500 // 2, (500 // 2) - 15))
   screen.blit(game_mode_surface, game_mode_rectangle)
-  screen.blit(game_mode_text, game_mode_rectangle)
+  screen.blit(game_mode_text, game_mode_rec)
 
   ## Difficulty buttons
   easy_text = button_font.render("EASY", 0, (255,255,255))
@@ -393,9 +395,9 @@ def main_menu_draw(screen):
         if easy_rectangle.collidepoint(event.pos):
           easy_screen(screen)
         elif medium_rectangle.collidepoint(event.pos):
-          med_screen(screen)
+          game_over(screen)
         elif hard_rectangle.collidepoint(event.pos):
-          hard_screen(screen)
+          game_won(screen)
 
     pygame.display.update()
 
