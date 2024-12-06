@@ -53,8 +53,8 @@ def game_over(screen):
   screen.blit(sudoku_image, (0,0))
 
 
-  title_surface = pygame.Surface((265,75)) #For showing title
-  title_surface.fill((255, 255, 255))
+  title_surface = pygame.Surface((265,75), pygame.SRCALPHA) #For showing title
+  title_surface.fill((255, 255, 255, 200))
   title_text = title_font.render("Game Over", 1, (0,0,0))
   title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
   title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
@@ -97,8 +97,8 @@ def game_won(screen):
   screen.blit(sudoku_image, (0,0))
 
 
-  title_surface = pygame.Surface((270,75)) #For showing title
-  title_surface.fill((255, 255, 255))
+  title_surface = pygame.Surface((270,75), pygame.SRCALPHA) #For showing title
+  title_surface.fill((255, 255, 255, 200))
   title_text = title_font.render("Game Won!", 1, (0,0,0))
   title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
   title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
@@ -333,16 +333,16 @@ def main_menu_draw(screen):
   screen.blit(sudoku_image, (0,0))
 
 
-  title_surface = pygame.Surface((375,50)) #For showing title
-  title_surface.fill((255, 255, 255))
+  title_surface = pygame.Surface((375,50), pygame.SRCALPHA) #For showing title
+  title_surface.fill((255, 255, 255, 200))
   title_text = title_font.render("Welcome to Sudoku", 1, (0,0,0))
   title_rectangle = title_surface.get_rect(center =(500 // 2, (500 // 2) - 125))
   title_text_rec = title_text.get_rect(center =(500 // 2, (500 // 2) - 125 ))
   screen.blit(title_surface, title_rectangle)
   screen.blit(title_text, title_text_rec)
 
-  game_mode_surface = pygame.Surface((230,40)) #For showing "game mode select" text
-  game_mode_surface.fill((255, 255, 255))
+  game_mode_surface = pygame.Surface((230,40), pygame.SRCALPHA) #For showing "game mode select" text
+  game_mode_surface.fill((255, 255, 255, 200))
   game_mode_text = game_mode_font.render("Select Game Mode:", 1, (0,0,0))
   game_mode_rectangle = game_mode_surface.get_rect(center = (500 //2, (500 // 2) - 15))
   game_mode_rec = game_mode_text.get_rect(center=(500 // 2, (500 // 2) - 15))
