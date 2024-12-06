@@ -45,8 +45,8 @@ def draw_small_grid():
         )
 
 def game_over(screen):
-  title_font = pygame.font.SysFont("artifaktelement", 50)
-  button_font = pygame.font.SysFont("comicsansms", 20, bold=True) #lucidasans or rockwellextra are other possible fonts
+  title_font = pygame.font.Font("font/artifakt/Artifakt Element Black.ttf", 47)
+  button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 20) #lucidasans or rockwellextra are other possible fonts
 
   sudoku_image = pygame.image.load("sudoku_image.jpg")
   sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
@@ -55,14 +55,14 @@ def game_over(screen):
 
   title_surface = pygame.Surface((265,75)) #For showing title
   title_surface.fill((255, 255, 255))
-  title_text = title_font.render("Game Over", 0, (0,0,0))
+  title_text = title_font.render("Game Over", 1, (0,0,0))
   title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
   title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
   screen.blit(title_surface, title_rectangle)
   screen.blit(title_text, title_rec)
 
   ## Restart button
-  restart_text = button_font.render("RESTART", 0, (255,255,255))
+  restart_text = button_font.render("RESTART", 1, (255,255,255))
 
 
   ## Button background
@@ -89,8 +89,8 @@ def game_over(screen):
     pygame.display.update()
 
 def game_won(screen):
-  title_font = pygame.font.SysFont("artifaktelement", 50)
-  button_font = pygame.font.SysFont("comicsansms", 20, bold=True) #lucidasans or rockwellextra are other possible fonts
+  title_font = pygame.font.Font("font/artifakt/Artifakt Element Black.ttf", 47)
+  button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 20) #lucidasans or rockwellextra are other possible fonts
 
   sudoku_image = pygame.image.load("sudoku_image.jpg")
   sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
@@ -99,14 +99,14 @@ def game_won(screen):
 
   title_surface = pygame.Surface((270,75)) #For showing title
   title_surface.fill((255, 255, 255))
-  title_text = title_font.render("Game Won!", 0, (0,0,0))
+  title_text = title_font.render("Game Won!", 1, (0,0,0))
   title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
   title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
   screen.blit(title_surface, title_rectangle)
   screen.blit(title_text, title_rec)
 
   ## Exit button
-  exit_text = button_font.render("EXIT", 0, (255,255,255))
+  exit_text = button_font.render("EXIT", 1, (255,255,255))
 
 
   ## Button background
@@ -140,11 +140,11 @@ def easy_screen(screen):
   draw_small_grid()
 
   ##Buttons at bottom of screen
-  button_font = pygame.font.SysFont("comicsansms", 16, bold=True)
+  button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 16)
   ## Difficulty buttons
-  reset_text = button_font.render("RESET", 0, (255,255,255))
-  restart_text = button_font.render("RESTART", 0, (255,255,255))
-  exit_text = button_font.render("EXIT", 0, (255,255,255))
+  reset_text = button_font.render("RESET", 1, (255,255,255))
+  restart_text = button_font.render("RESTART", 1, (255,255,255))
+  exit_text = button_font.render("EXIT", 1, (255,255,255))
 
   ## Button background
   reset_surface = pygame.Surface((85, 30))
@@ -203,11 +203,11 @@ def med_screen(screen):
   draw_small_grid()
 
   ##Buttons at bottom of screen
-  button_font = pygame.font.SysFont("comicsansms", 16, bold=True)
+  button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 16)
   ## Difficulty buttons
-  reset_text = button_font.render("RESET", 0, (255,255,255))
-  restart_text = button_font.render("RESTART", 0, (255,255,255))
-  exit_text = button_font.render("EXIT", 0, (255,255,255))
+  reset_text = button_font.render("RESET", 1, (255,255,255))
+  restart_text = button_font.render("RESTART", 1, (255,255,255))
+  exit_text = button_font.render("EXIT", 1, (255,255,255))
 
   ## Button background
   reset_surface = pygame.Surface((85, 30))
@@ -265,11 +265,11 @@ def hard_screen(screen):
   draw_small_grid()
 
   ##Buttons at bottom of screen
-  button_font = pygame.font.SysFont("comicsansms", 16, bold=True)
+  button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 16)
   ## Difficulty buttons
-  reset_text = button_font.render("RESET", 0, (255,255,255))
-  restart_text = button_font.render("RESTART", 0, (255,255,255))
-  exit_text = button_font.render("EXIT", 0, (255,255,255))
+  reset_text = button_font.render("RESET", 1, (255,255,255))
+  restart_text = button_font.render("RESTART", 1, (255,255,255))
+  exit_text = button_font.render("EXIT", 1, (255,255,255))
 
   ## Button background
   reset_surface = pygame.Surface((85, 30))
@@ -324,9 +324,9 @@ def hard_screen(screen):
 
 
 def main_menu_draw(screen):
-  title_font = pygame.font.SysFont("artifaktelement", 40)
-  game_mode_font = pygame.font.SysFont("artifaktelement", 25)
-  button_font = pygame.font.SysFont("comicsansms", 20, bold=True) #lucidasans or rockwellextra are other possible fonts
+  title_font = pygame.font.Font("font/artifakt/Artifakt Element Black.ttf", 37)
+  game_mode_font = pygame.font.Font("font/artifakt/Artifakt Element Black.ttf", 23)
+  button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 20) #lucidasans or rockwellextra are other possible fonts
 
   sudoku_image = pygame.image.load("sudoku_image.jpg")
   sudoku_image = pygame.transform.scale(sudoku_image, (500, 500))
@@ -350,9 +350,9 @@ def main_menu_draw(screen):
   screen.blit(game_mode_text, game_mode_rec)
 
   ## Difficulty buttons
-  easy_text = button_font.render("EASY", 0, (255,255,255))
-  medium_text = button_font.render("MEDIUM", 0, (255,255,255))
-  hard_text = button_font.render("HARD", 0, (255,255,255))
+  easy_text = button_font.render("EASY", 1, (255,255,255))
+  medium_text = button_font.render("MEDIUM", 1, (255,255,255))
+  hard_text = button_font.render("HARD", 1, (255,255,255))
 
   ## Button background
   easy_surface = pygame.Surface((90, 40))
