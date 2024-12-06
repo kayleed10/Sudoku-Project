@@ -53,8 +53,8 @@ def game_over(screen):
   screen.blit(sudoku_image, (0,0))
 
 
-  title_surface = pygame.Surface((265,75)) #For showing title
-  title_surface.fill((255, 255, 255))
+  title_surface = pygame.Surface((265,75), pygame.SRCALPHA) #For showing title
+  title_surface.fill((255, 255, 255, 200))
   title_text = title_font.render("Game Over", 0, (0,0,0))
   title_rectangle = title_surface.get_rect(center = (500 //2, 500 // 2 - 100))
   title_rec = title_text.get_rect(center=(500 // 2, 500 // 2 - 100))
