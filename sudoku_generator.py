@@ -133,13 +133,24 @@ class SudokuGenerator:
         #This should hopefully work
         #This in fact did not work and I had to remove the valid in box call
         #might have to add it back later but ima just run it like this for now
-        if not self.valid_in_row(row, num):
-            return False
-        if not self.valid_in_col(col, num):
-            return False
+        # Check the row, excluding the current column
+        for c in range(9):
+            if c != col and self.board[row][c] == num:
+                return False
 
-        if not self.valid_in_box(row-row%3, col-col%3, num):
-            return False
+        # Check the column, excluding the current row
+        for r in range(9):
+            if r != row and self.board[r][col] == num:
+                return False
+
+        # Check the 3x3 box, excluding the current cell
+        box_row_start = row - row % 3
+        box_col_start = col - col % 3
+        for i in range(3):
+            for j in range(3):
+                if (box_row_start + i != row or box_col_start + j != col) and \
+                        self.board[box_row_start + i][box_col_start + j] == num:
+                    return False
 
         return True
 
@@ -391,6 +402,8 @@ class Board:
     def check_board(self):
         for row in range(9):
             for col in range(9):
+                if self.cells[row][col].value == 0:
+                    return False
                 if not self.sudoku_generator.is_valid(row, col, self.cells[row][col].value):
                     return False
         return True

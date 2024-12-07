@@ -190,7 +190,7 @@ def easy_screen(screen):
   screen.blit(exit_surface, exit_rectangle)
 
   pygame.display.update()
-
+  x, y = 0,0
   while True:
     if sudoku_board.is_full() == True:
       if sudoku_board.check_board() == True:
@@ -226,7 +226,9 @@ def easy_screen(screen):
           if sudoku_board.selected_cell:
             sudoku_board.selected_cell.set_sketched_value(0)
         elif event.key == pygame.K_UP:
+
           original_x, original_y = x, y
+
           while True:
             y -= 60
             if y <= 0:
@@ -332,7 +334,7 @@ def med_screen(screen):
   screen.blit(exit_surface, exit_rectangle)
 
   pygame.display.update()
-
+  x, y = 0, 0
   while True:
     if sudoku_board.is_full() == True:
       if sudoku_board.check_board() == True:
@@ -368,17 +370,54 @@ def med_screen(screen):
           if sudoku_board.selected_cell:
             sudoku_board.selected_cell.set_sketched_value(0)
         elif event.key == pygame.K_UP:
-          sudoku_board.click(x, y - 60)
-          x, y = (x, y - 60)
+          original_x, original_y = x, y
+          while True:
+            y -= 60
+            if y <= 0:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
+
         elif event.key == pygame.K_DOWN:
-          sudoku_board.click(x, y + 60)
-          x, y = (x, y + 60)
+          original_x, original_y = x, y
+          while True:
+            y += 60
+            if y >= 540:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
         elif event.key == pygame.K_LEFT:
-          sudoku_board.click(x - 60, y)
-          x, y = (x - 60, y)
+          original_x, original_y = x, y
+          while True:
+            x -= 60
+            if x <= 0:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
         elif event.key == pygame.K_RIGHT:
-          sudoku_board.click(x + 60, y)
-          x, y = (x + 60, y)
+          original_x, original_y = x, y
+          while True:
+            x += 60
+            if x >= 540:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
 
     screen_surface = pygame.Surface((540, 540))
     screen_surface.fill((202, 228, 241))
@@ -437,7 +476,7 @@ def hard_screen(screen):
   screen.blit(exit_surface, exit_rectangle)
 
   pygame.display.update()
-
+  x, y = 0, 0
   while True:
     if sudoku_board.is_full() == True:
       if sudoku_board.check_board() == True:
@@ -473,17 +512,54 @@ def hard_screen(screen):
           if sudoku_board.selected_cell:
             sudoku_board.selected_cell.set_sketched_value(0)
         elif event.key == pygame.K_UP:
-          sudoku_board.click(x, y - 60)
-          x, y = (x, y - 60)
+          original_x, original_y = x, y
+          while True:
+            y -= 60
+            if y <= 0:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
+
         elif event.key == pygame.K_DOWN:
-          sudoku_board.click(x, y + 60)
-          x, y = (x, y + 60)
+          original_x, original_y = x, y
+          while True:
+            y += 60
+            if y >= 540:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
         elif event.key == pygame.K_LEFT:
-          sudoku_board.click(x - 60, y)
-          x, y = (x - 60, y)
+          original_x, original_y = x, y
+          while True:
+            x -= 60
+            if x <= 0:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
         elif event.key == pygame.K_RIGHT:
-          sudoku_board.click(x + 60, y)
-          x, y = (x + 60, y)
+          original_x, original_y = x, y
+          while True:
+            x += 60
+            if x >= 540:
+              x, y = original_x, original_y
+              sudoku_board.click(x, y)
+              break
+            sudoku_board.click(x, y)
+
+            if sudoku_board.selected_cell.value == 0:
+              break
 
     screen_surface = pygame.Surface((540, 540))
     screen_surface.fill((202, 228, 241))
