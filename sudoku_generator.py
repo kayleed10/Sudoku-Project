@@ -106,12 +106,16 @@ class SudokuGenerator:
         #just make sure that values % 3 == 0 and if not then add up or down.
         #this code is written expecting the board list to be contained as [[row][row]], if this
         #changes, rewrite this code.
-        searched_rows = []
-        for i in range(row_start, row_start + 3):
-            searched_rows.append(self.board[i])
-        for rows in searched_rows:
-            for i in range(col_start, col_start + 3):
-                if rows[i] == num:
+        # searched_rows = []
+        # for i in range(row_start, row_start + 3):
+        #     searched_rows.append(self.board[i])
+        # for rows in searched_rows:
+        #     for i in range(col_start, col_start + 3):
+        #         if rows[i] == num:
+        #             return False
+        for i in range(3):
+            for j in range(3):
+                if self.board[row_start+i][col_start + j] == num:
                     return False
         return True
     
@@ -129,10 +133,15 @@ class SudokuGenerator:
         #This should hopefully work
         #This in fact did not work and I had to remove the valid in box call
         #might have to add it back later but ima just run it like this for now
-        if self.valid_in_row(row, num):
-            if self.valid_in_col(col, num):
-                return True
-        return False
+        if not self.valid_in_row(row, num):
+            return False
+        if not self.valid_in_col(col, num):
+            return False
+
+        if not self.valid_in_box(row-row%3, col-col%3, num):
+            return False
+
+        return True
 
     '''
     Fills the specified 3x3 box with values
