@@ -246,128 +246,212 @@ def easy_screen(screen):
 
 def med_screen(screen):
   screen.fill((202, 228, 241))
-  draw_big_grid()
-  draw_small_grid()
+  # draw_big_grid()
+  # draw_small_grid()
+
+  sudoku_board = Board(540, 540, screen, 40)
+  # for row in sudoku_board.cells:
+  #   for cell in row:
+
+  sudoku_board.draw()
 
   ##Buttons at bottom of screen
   button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 16)
   ## Difficulty buttons
-  reset_text = button_font.render("RESET", 1, (255,255,255))
-  restart_text = button_font.render("RESTART", 1, (255,255,255))
-  exit_text = button_font.render("EXIT", 1, (255,255,255))
+  reset_text = button_font.render("RESET", 1, (255, 255, 255))
+  restart_text = button_font.render("RESTART", 1, (255, 255, 255))
+  exit_text = button_font.render("EXIT", 1, (255, 255, 255))
 
   ## Button background
   reset_surface = pygame.Surface((85, 30))
-  restart_surface = pygame.Surface((85,30))
-  exit_surface = pygame.Surface((85,30))
+  restart_surface = pygame.Surface((85, 30))
+  exit_surface = pygame.Surface((85, 30))
 
   ## Putting reset button on screen
   reset_surface.fill((92, 64, 51))
-  reset_surface.blit(reset_text, (15,3))
+  reset_surface.blit(reset_text, (15, 3))
 
   reset_rectangle = reset_surface.get_rect(
-    center = (500 // 2 - 95, 500 // 2 + 219))
+    center=(540 // 2 - 95, 570))
 
   screen.blit(reset_surface, reset_rectangle)
 
   ##Putting restart button on screen
   restart_surface.fill((92, 64, 51))
-  restart_surface.blit(restart_text, (5,3))
+  restart_surface.blit(restart_text, (5, 3))
 
   restart_rectangle = restart_surface.get_rect(
-    center = (500 // 2, 500 // 2 + 219))
+    center=(540 // 2, 570))
 
   screen.blit(restart_surface, restart_rectangle)
 
   ##Putting exit button on screen
   exit_surface.fill((92, 64, 51))
-  exit_surface.blit(exit_text, (20,3))
+  exit_surface.blit(exit_text, (20, 3))
 
   exit_rectangle = exit_surface.get_rect(
-    center = (500 // 2 + 95, 500 // 2 + 219))
+    center=(540 // 2 + 95, 570))
 
   screen.blit(exit_surface, exit_rectangle)
 
   pygame.display.update()
 
   while True:
+    if sudoku_board.is_full() == True:
+      if sudoku_board.check_board() == True:
+        game_won(screen)
+      if sudoku_board.check_board() == False:
+        game_over(screen)
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
         sys.exit()
       elif event.type == pygame.MOUSEBUTTONDOWN:
         if reset_rectangle.collidepoint(event.pos):
-          med_screen(screen)
+          sudoku_board.reset_to_original()
         elif restart_rectangle.collidepoint(event.pos):
           main_menu_draw(screen)
         elif exit_rectangle.collidepoint(event.pos):
           pygame.quit()
           sys.exit()
+        else:
+          x, y = event.pos
+          # if not sudoku_board.is_full:
+          sudoku_board.click(x, y)
+      elif event.type == pygame.KEYDOWN:
+        if pygame.K_1 <= event.key <= pygame.K_9:
+          user_input = event.key - pygame.K_0
+          sudoku_board.sketch(user_input)
+        if pygame.K_KP_1 <= event.key <= pygame.K_KP_9:
+          user_input = event.key - pygame.K_KP_1 + 1
+          sudoku_board.sketch(user_input)
+        elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
+          sudoku_board.place_number(user_input)
+        elif event.key == pygame.K_BACKSPACE:
+          if sudoku_board.selected_cell:
+            sudoku_board.selected_cell.set_sketched_value(0)
+        elif event.key == pygame.K_UP:
+          sudoku_board.click(x, y - 60)
+          x, y = (x, y - 60)
+        elif event.key == pygame.K_DOWN:
+          sudoku_board.click(x, y + 60)
+          x, y = (x, y + 60)
+        elif event.key == pygame.K_LEFT:
+          sudoku_board.click(x - 60, y)
+          x, y = (x - 60, y)
+        elif event.key == pygame.K_RIGHT:
+          sudoku_board.click(x + 60, y)
+          x, y = (x + 60, y)
 
+    screen_surface = pygame.Surface((540, 540))
+    screen_surface.fill((202, 228, 241))
+    sudoku_board.draw()
     pygame.display.update()
+
 
 def hard_screen(screen):
   screen.fill((202, 228, 241))
-  draw_big_grid()
-  draw_small_grid()
+  # draw_big_grid()
+  # draw_small_grid()
+
+  sudoku_board = Board(540, 540, screen, 50)
+  # for row in sudoku_board.cells:
+  #   for cell in row:
+
+  sudoku_board.draw()
 
   ##Buttons at bottom of screen
   button_font = pygame.font.Font("font/comicsansms/comicbd.ttf", 16)
   ## Difficulty buttons
-  reset_text = button_font.render("RESET", 1, (255,255,255))
-  restart_text = button_font.render("RESTART", 1, (255,255,255))
-  exit_text = button_font.render("EXIT", 1, (255,255,255))
+  reset_text = button_font.render("RESET", 1, (255, 255, 255))
+  restart_text = button_font.render("RESTART", 1, (255, 255, 255))
+  exit_text = button_font.render("EXIT", 1, (255, 255, 255))
 
   ## Button background
   reset_surface = pygame.Surface((85, 30))
-  restart_surface = pygame.Surface((85,30))
-  exit_surface = pygame.Surface((85,30))
+  restart_surface = pygame.Surface((85, 30))
+  exit_surface = pygame.Surface((85, 30))
 
   ## Putting reset button on screen
   reset_surface.fill((92, 64, 51))
-  reset_surface.blit(reset_text, (15,3))
+  reset_surface.blit(reset_text, (15, 3))
 
   reset_rectangle = reset_surface.get_rect(
-    center = (500 // 2 - 95, 500 // 2 + 219))
+    center=(540 // 2 - 95, 570))
 
   screen.blit(reset_surface, reset_rectangle)
 
   ##Putting restart button on screen
   restart_surface.fill((92, 64, 51))
-  restart_surface.blit(restart_text, (5,3))
+  restart_surface.blit(restart_text, (5, 3))
 
   restart_rectangle = restart_surface.get_rect(
-    center = (500 // 2, 500 // 2 + 219))
+    center=(540 // 2, 570))
 
   screen.blit(restart_surface, restart_rectangle)
 
   ##Putting exit button on screen
   exit_surface.fill((92, 64, 51))
-  exit_surface.blit(exit_text, (20,3))
+  exit_surface.blit(exit_text, (20, 3))
 
   exit_rectangle = exit_surface.get_rect(
-    center = (500 // 2 + 95, 500 // 2 + 219))
+    center=(540 // 2 + 95, 570))
 
   screen.blit(exit_surface, exit_rectangle)
 
   pygame.display.update()
 
   while True:
+    if sudoku_board.is_full() == True:
+      if sudoku_board.check_board() == True:
+        game_won(screen)
+      if sudoku_board.check_board() == False:
+        game_over(screen)
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
         sys.exit()
       elif event.type == pygame.MOUSEBUTTONDOWN:
         if reset_rectangle.collidepoint(event.pos):
-          hard_screen(screen)
+          sudoku_board.reset_to_original()
         elif restart_rectangle.collidepoint(event.pos):
           main_menu_draw(screen)
         elif exit_rectangle.collidepoint(event.pos):
           pygame.quit()
           sys.exit()
+        else:
+          x, y = event.pos
+          # if not sudoku_board.is_full:
+          sudoku_board.click(x, y)
+      elif event.type == pygame.KEYDOWN:
+        if pygame.K_1 <= event.key <= pygame.K_9:
+          user_input = event.key - pygame.K_0
+          sudoku_board.sketch(user_input)
+        if pygame.K_KP_1 <= event.key <= pygame.K_KP_9:
+          user_input = event.key - pygame.K_KP_1 + 1
+          sudoku_board.sketch(user_input)
+        elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
+          sudoku_board.place_number(user_input)
+        elif event.key == pygame.K_BACKSPACE:
+          if sudoku_board.selected_cell:
+            sudoku_board.selected_cell.set_sketched_value(0)
+        elif event.key == pygame.K_UP:
+          sudoku_board.click(x, y - 60)
+          x, y = (x, y - 60)
+        elif event.key == pygame.K_DOWN:
+          sudoku_board.click(x, y + 60)
+          x, y = (x, y + 60)
+        elif event.key == pygame.K_LEFT:
+          sudoku_board.click(x - 60, y)
+          x, y = (x - 60, y)
+        elif event.key == pygame.K_RIGHT:
+          sudoku_board.click(x + 60, y)
+          x, y = (x + 60, y)
 
+    screen_surface = pygame.Surface((540, 540))
+    screen_surface.fill((202, 228, 241))
+    sudoku_board.draw()
     pygame.display.update()
-
 
 
 def main_menu_draw(screen):
@@ -442,9 +526,9 @@ def main_menu_draw(screen):
         if easy_rectangle.collidepoint(event.pos):
           easy_screen(screen)
         elif medium_rectangle.collidepoint(event.pos):
-          game_over(screen)
+          med_screen(screen)
         elif hard_rectangle.collidepoint(event.pos):
-          game_won(screen)
+          hard_screen(screen)
 
     pygame.display.update()
 
