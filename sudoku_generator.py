@@ -272,6 +272,7 @@ class Cell:
     def __init__(self, value, row, col, screen):
         self.value = value
         self.sketch = 0
+        self.original_sketch = 0 # Variable to store original sketch so that it is not overridden by a new sketch
         self.row = row
         self.col = col
         self.screen = screen
@@ -283,6 +284,8 @@ class Cell:
 
     def set_sketched_value(self, value):
         self.sketch = value
+        if self.original_sketch == 0:
+            self.original_sketch = value
 
 
     def draw(self):
@@ -354,7 +357,11 @@ class Board:
 
     def place_number(self, value):
         if self.selected_cell:
-            self.selected_cell.set_cell_value(value)
+            if self.selected_cell.sketch == 0:
+                value_for_placement = self.selected_cell.original_sketch
+            else:
+                value_for_placement = self.selected_cell.sketch
+            self.selected_cell.set_cell_value(value_for_placement)
             self.selected_cell.set_sketched_value(0)
 
     def reset_to_original(self):

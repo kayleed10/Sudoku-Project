@@ -192,6 +192,11 @@ def easy_screen(screen):
   pygame.display.update()
 
   while True:
+    if sudoku_board.is_full == True:
+      if sudoku_board.check_board == True:
+        game_won(screen)
+      if not sudoku_board.check_board:
+        game_over(screen)
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
@@ -212,7 +217,7 @@ def easy_screen(screen):
         if pygame.K_1 <= event.key <= pygame.K_9:
           user_input = event.key - pygame.K_0
           sudoku_board.sketch(user_input)
-        elif event.key == pygame.K_RETURN:
+        elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
           sudoku_board.place_number(user_input)
         elif event.key == pygame.K_BACKSPACE:
           if sudoku_board.selected_cell:
