@@ -217,6 +217,9 @@ def easy_screen(screen):
         if pygame.K_1 <= event.key <= pygame.K_9:
           user_input = event.key - pygame.K_0
           sudoku_board.sketch(user_input)
+        if pygame.K_KP_1 <= event.key <= pygame.K_KP_9:
+          user_input = event.key - pygame.K_KP_1 + 1
+          sudoku_board.sketch(user_input)
         elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
           sudoku_board.place_number(user_input)
         elif event.key == pygame.K_BACKSPACE:
