@@ -137,7 +137,6 @@ class SudokuGenerator:
             return False
         if not self.valid_in_col(col, num):
             return False
-
         if not self.valid_in_box(row-row%3, col-col%3, num):
             return False
 
@@ -388,10 +387,38 @@ class Board:
                     return False
         return True
 
+    def valid_in_row(self, row, num):
+        searched_row = self.board[row]
+        for numbers in searched_row:
+            if numbers == num:
+                return True
+        return False
+    def valid_in_col(self, col, num):
+        for rows in self.board:
+            if rows[col] == num:
+                return True
+        return False
+    def valid_in_box(self, row_start, col_start, num):
+        for i in range(3):
+            for j in range(3):
+                if self.board[row_start+i][col_start + j] == num:
+                    return True
+        return False
+    def is_valid(self, row, col, num):
+        if not self.valid_in_row(row, num):
+            return False
+        if not self.valid_in_col(col, num):
+            return False
+        if not self.valid_in_box(row-row%3, col-col%3, num):
+            return False
+        return True
+
     def check_board(self):
         for row in range(9):
             for col in range(9):
-                if not self.sudoku_generator.is_valid(row, col, self.cells[row][col].value):
+                if self.is_valid(row, col, self.cells[row][col].value):
+                    return True
+                if not self.is_valid(row, col, self.cells[row][col].value):
                     return False
         return True
 
