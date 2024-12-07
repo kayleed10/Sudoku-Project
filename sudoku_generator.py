@@ -289,7 +289,7 @@ class Cell:
         x = self.col * 60
         y = self.row * 60
         pygame.draw.rect(self.screen, (202, 228, 241), (x, y, 60, 60))
-        if self.selected:
+        if self.selected and self.value == 0:
             pygame.draw.rect(self.screen, (255, 0, 0), (x, y, 60, 60), 5)
 
         font = pygame.font.SysFont('Arial', 30)
