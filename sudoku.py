@@ -143,7 +143,7 @@ def easy_screen(screen):
   # draw_big_grid()
   # draw_small_grid()
 
-  sudoku_board = Board(540, 540, screen, 1)
+  sudoku_board = Board(540, 540, screen, 30)
   # for row in sudoku_board.cells:
   #   for cell in row:
 
