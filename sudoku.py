@@ -192,10 +192,10 @@ def easy_screen(screen):
   pygame.display.update()
 
   while True:
-    if sudoku_board.is_full == True:
-      if sudoku_board.check_board == True:
+    if sudoku_board.is_full() == True:
+      if sudoku_board.check_board() == True:
         game_won(screen)
-      if not sudoku_board.check_board:
+      if sudoku_board.check_board() == False:
         game_over(screen)
     for event in pygame.event.get():
       if event.type == pygame.QUIT:

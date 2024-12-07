@@ -357,12 +357,13 @@ class Board:
 
     def place_number(self, value):
         if self.selected_cell:
-            if self.selected_cell.sketch == 0:
-                value_for_placement = self.selected_cell.original_sketch
-            else:
-                value_for_placement = self.selected_cell.sketch
-            self.selected_cell.set_cell_value(value_for_placement)
-            self.selected_cell.set_sketched_value(0)
+            if self.selected_cell.value ==0:
+                if self.selected_cell.sketch == 0:
+                    value_for_placement = self.selected_cell.original_sketch
+                else:
+                    value_for_placement = self.selected_cell.sketch
+                self.selected_cell.set_cell_value(value_for_placement)
+                self.selected_cell.set_sketched_value(0)
 
     def reset_to_original(self):
         for row in range(9):
