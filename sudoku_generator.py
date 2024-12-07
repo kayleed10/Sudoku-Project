@@ -297,8 +297,9 @@ class Cell:
             text = font.render(str(self.value), True, (0, 0, 0))
             self.screen.blit(text, (x + 20, y + 20))
         elif self.sketch != 0:
-            text = font.render(str(self.sketch), True, (0, 0, 0))
-            self.screen.blit(text, (x + 20, y + 20))
+            font = pygame.font.SysFont('Arial', 22)
+            text = font.render(str(self.sketch), True, (105,105,105))
+            self.screen.blit(text, (x + 5, y + 5))
 
 
 class Board:
@@ -310,6 +311,7 @@ class Board:
         self.cells = [[Cell(0, row, col, screen) for col in range(9)] for row in range(9)]
         self.selected_cell = None
         self.generate_sudoku()
+        self.original_board = [[cell.value for cell in row] for row in self.cells]
 
     def generate_sudoku(self):
         self.sudoku_generator = SudokuGenerator(9, self.difficulty)
@@ -350,14 +352,17 @@ class Board:
         if self.selected_cell:
             self.selected_cell.set_sketched_value(value)
 
-
-
     def place_number(self, value):
         if self.selected_cell:
             self.selected_cell.set_cell_value(value)
+            self.selected_cell.set_sketched_value(0)
 
     def reset_to_original(self):
-        self.generate_sudoku()
+        for row in range(9):
+            for col in range(9):
+                if self.original_board[row][col] == 0:
+                    self.cells[row][col].set_cell_value(0)
+                    self.cells[row][col].set_sketched_value(0)
 
     def is_full(self):
         for row in self.cells:

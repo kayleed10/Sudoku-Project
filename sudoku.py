@@ -206,7 +206,8 @@ def easy_screen(screen):
           sys.exit()
         else:
           x, y = event.pos
-          sudoku_board.click(x,y)
+          # if not sudoku_board.is_full:
+          sudoku_board.click(x, y)
       elif event.type == pygame.KEYDOWN:
         if pygame.K_1 <= event.key <= pygame.K_9:
           user_input = event.key - pygame.K_0
@@ -216,8 +217,8 @@ def easy_screen(screen):
         elif event.key == pygame.K_BACKSPACE:
           if sudoku_board.selected_cell:
             sudoku_board.selected_cell.set_sketched_value(0)
-
-    screen.fill((202,228,241))
+    screen_surface = pygame.Surface((540,540))
+    screen_surface.fill((202,228,241))
     sudoku_board.draw()
     pygame.display.update()
 
